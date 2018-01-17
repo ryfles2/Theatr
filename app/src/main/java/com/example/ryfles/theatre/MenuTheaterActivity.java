@@ -1,5 +1,6 @@
 package com.example.ryfles.theatre;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -89,7 +90,7 @@ public class MenuTheaterActivity extends AppCompatActivity
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
-
+            nextAcrivityLogin();
         } else if (id == R.id.nav_send) {
 
         }
@@ -98,4 +99,12 @@ public class MenuTheaterActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    private void nextAcrivityLogin()
+    {
+        Intent myIntent = new Intent(this, LoginActivity.class);
+        startActivity(myIntent);
+
+    }
+
 }

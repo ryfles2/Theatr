@@ -59,7 +59,7 @@ public class LoginActivity extends BaseActivity  implements View.OnClickListener
         findViewById(R.id.email_create_account_button).setOnClickListener(this);
         findViewById(R.id.verify_email_button).setOnClickListener(this);
         findViewById(R.id.next).setOnClickListener(this);
-
+        findViewById(R.id.btnBackMenu).setOnClickListener(this);
 
 
 
@@ -300,8 +300,11 @@ public class LoginActivity extends BaseActivity  implements View.OnClickListener
             //mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
 
             mStatusTextView.setText(getString(R.string.emailpassword_status_fmt, user.getEmail(), user.isEmailVerified()));
-            mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
+            //mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
+            mDetailTextView.setText("Here will be some information about your accointant");
 
+
+            findViewById(R.id.btnBackMenu).setVisibility(View.GONE);
             findViewById(R.id.sign_in_button).setVisibility(View.GONE);
             findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
             findViewById(R.id.email_sign_in_button).setVisibility(View.GONE);
@@ -320,6 +323,7 @@ public class LoginActivity extends BaseActivity  implements View.OnClickListener
             mStatusTextView.setText(R.string.signed_out);
             mDetailTextView.setText(null);
 
+            findViewById(R.id.btnBackMenu).setVisibility(View.VISIBLE);
             findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
             findViewById(R.id.sign_out_and_disconnect).setVisibility(View.GONE);
             findViewById(R.id.email_sign_in_button).setVisibility(View.VISIBLE);
@@ -349,6 +353,9 @@ public class LoginActivity extends BaseActivity  implements View.OnClickListener
         }else if (i == R.id.verify_email_button) {
             sendEmailVerification();
         }else if (i == R.id.next) {
+            nextAcrivityMenu();
+        }
+        else if (i == R.id.btnBackMenu) {
             nextAcrivityMenu();
         }
     }
