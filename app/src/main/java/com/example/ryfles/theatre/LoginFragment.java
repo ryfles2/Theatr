@@ -1,13 +1,19 @@
 package com.example.ryfles.theatre;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.Nullable;
+import android.support.annotation.VisibleForTesting;
+import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,8 +31,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+/**
+ * Created by Ryfles on 2018-01-23.
+ */
 
-public class LoginActivity extends BaseActivity  implements View.OnClickListener {
+public class LoginFragment extends Fragment implements View.OnClickListener {
+
 
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;
@@ -40,28 +50,14 @@ public class LoginActivity extends BaseActivity  implements View.OnClickListener
     private TextView mDetailTextView;
     private EditText mEmailField;
     private EditText mPasswordField;
+    private View view;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-
-        // Views
-        mStatusTextView = findViewById(R.id.status);
-        mDetailTextView = findViewById(R.id.detail);
-        mEmailField = findViewById(R.id.field_email);
-        mPasswordField = findViewById(R.id.field_password);
-
-        // Button listeners
-        findViewById(R.id.sign_in_button).setOnClickListener(this);
-        findViewById(R.id.sign_out_button).setOnClickListener(this);
-        findViewById(R.id.email_sign_in_button).setOnClickListener(this);
-        findViewById(R.id.email_create_account_button).setOnClickListener(this);
-        findViewById(R.id.verify_email_button).setOnClickListener(this);
-        findViewById(R.id.next).setOnClickListener(this);
-        findViewById(R.id.btnBackMenu).setOnClickListener(this);
 
 
+        Context context = getContext();
 
         // [START config_signin]
         // Configure Google Sign In
@@ -71,11 +67,32 @@ public class LoginActivity extends BaseActivity  implements View.OnClickListener
                 .build();
         // [END config_signin]
 
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        mGoogleSignInClient = GoogleSignIn.getClient(context, gso);
 
         // [START initialize_auth]
         mAuth = FirebaseAuth.getInstance();
         // [END initialize_auth]
+    }
+
+        public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+
+            View v = inflater.inflate(R.layout.fragment_login, container, false);
+            view=v;
+            // Views
+            mStatusTextView = v.findViewById(R.id.status);
+            mDetailTextView = v.findViewById(R.id.detail);
+            mEmailField = v.findViewById(R.id.field_email);
+            mPasswordField = v.findViewById(R.id.field_password);
+
+            // Button listeners
+            v.findViewById(R.id.sign_in_button).setOnClickListener(this);
+            v.findViewById(R.id.sign_out_button).setOnClickListener(this);
+            v.findViewById(R.id.email_sign_in_button).setOnClickListener(this);
+            v.findViewById(R.id.email_create_account_button).setOnClickListener(this);
+            v.findViewById(R.id.verify_email_button).setOnClickListener(this);
+
+
+        return v;
     }
 
     // [START on_start_check_user]
@@ -98,7 +115,7 @@ public class LoginActivity extends BaseActivity  implements View.OnClickListener
 
         // [START create_user_with_email]
         mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
@@ -109,7 +126,7 @@ public class LoginActivity extends BaseActivity  implements View.OnClickListener
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                            Toast.makeText(getActivity(), "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
@@ -133,7 +150,7 @@ public class LoginActivity extends BaseActivity  implements View.OnClickListener
 
         // [START sign_in_with_email]
         mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
@@ -144,7 +161,7 @@ public class LoginActivity extends BaseActivity  implements View.OnClickListener
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                            Toast.makeText(getActivity(), "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
@@ -192,7 +209,7 @@ public class LoginActivity extends BaseActivity  implements View.OnClickListener
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
@@ -203,7 +220,7 @@ public class LoginActivity extends BaseActivity  implements View.OnClickListener
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                            Toast.makeText(getActivity(), "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
@@ -231,7 +248,7 @@ public class LoginActivity extends BaseActivity  implements View.OnClickListener
         mAuth.signOut();
 
         // Google sign out
-        mGoogleSignInClient.signOut().addOnCompleteListener(this,
+        mGoogleSignInClient.signOut().addOnCompleteListener(getActivity(),
                 new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -264,26 +281,26 @@ public class LoginActivity extends BaseActivity  implements View.OnClickListener
 
     private void sendEmailVerification() {
         // Disable button
-        findViewById(R.id.verify_email_button).setEnabled(false);
+        view.findViewById(R.id.verify_email_button).setEnabled(false);
 
         // Send verification email
         // [START send_email_verification]
         final FirebaseUser user = mAuth.getCurrentUser();
         user.sendEmailVerification()
-                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                .addOnCompleteListener(getActivity(), new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         // [START_EXCLUDE]
                         // Re-enable button
-                        findViewById(R.id.verify_email_button).setEnabled(true);
+                        view.findViewById(R.id.verify_email_button).setEnabled(true);
 
                         if (task.isSuccessful()) {
-                            Toast.makeText(LoginActivity.this,
+                            Toast.makeText(getActivity(),
                                     "Verification email sent to " + user.getEmail(),
                                     Toast.LENGTH_SHORT).show();
                         } else {
                             Log.e(TAG, "sendEmailVerification", task.getException());
-                            Toast.makeText(LoginActivity.this,
+                            Toast.makeText(getActivity(),
                                     "Failed to send verification email.",
                                     Toast.LENGTH_SHORT).show();
                         }
@@ -304,41 +321,35 @@ public class LoginActivity extends BaseActivity  implements View.OnClickListener
             mDetailTextView.setText("Here will be some information about your accointant");
 
 
-            findViewById(R.id.btnBackMenu).setVisibility(View.GONE);
-            findViewById(R.id.sign_in_button).setVisibility(View.GONE);
-            findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
-            findViewById(R.id.email_sign_in_button).setVisibility(View.GONE);
-            findViewById(R.id.email_create_account_button).setVisibility(View.GONE);
+
+            view.findViewById(R.id.sign_in_button).setVisibility(View.GONE);
+            view.findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
+            view.findViewById(R.id.email_sign_in_button).setVisibility(View.GONE);
+            view.findViewById(R.id.email_create_account_button).setVisibility(View.GONE);
             mEmailField .setVisibility(View.GONE);
             mPasswordField.setVisibility(View.GONE);
 
             if (!user.isEmailVerified()){
-                findViewById(R.id.verify_email_button).setVisibility(View.VISIBLE);
+                view.findViewById(R.id.verify_email_button).setVisibility(View.VISIBLE);
             }else{
-                findViewById(R.id.verify_email_button).setVisibility(View.GONE);
+                view.findViewById(R.id.verify_email_button).setVisibility(View.GONE);
             }
 
-                //findViewById(R.id.verify_email_button).setEnabled(!user.isEmailVerified());
+            //findViewById(R.id.verify_email_button).setEnabled(!user.isEmailVerified());
         } else {
             mStatusTextView.setText(R.string.signed_out);
             mDetailTextView.setText(null);
 
-            findViewById(R.id.btnBackMenu).setVisibility(View.VISIBLE);
-            findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
-            findViewById(R.id.sign_out_and_disconnect).setVisibility(View.GONE);
-            findViewById(R.id.email_sign_in_button).setVisibility(View.VISIBLE);
-            findViewById(R.id.email_create_account_button).setVisibility(View.VISIBLE);
+
+            view.findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
+            view.findViewById(R.id.sign_out_and_disconnect).setVisibility(View.GONE);
+            view.findViewById(R.id.email_sign_in_button).setVisibility(View.VISIBLE);
+            view.findViewById(R.id.email_create_account_button).setVisibility(View.VISIBLE);
             mEmailField .setVisibility(View.VISIBLE);
             mPasswordField.setVisibility(View.VISIBLE);
         }
     }
 
-    private void nextAcrivityMenu()
-    {
-        Intent myIntent = new Intent(this, MenuTheaterActivity.class);
-        startActivity(myIntent);
-
-    }
     @Override
     public void onClick(View v) {
         int i = v.getId();
@@ -352,11 +363,31 @@ public class LoginActivity extends BaseActivity  implements View.OnClickListener
             signIn(mEmailField.getText().toString(), mPasswordField.getText().toString());
         }else if (i == R.id.verify_email_button) {
             sendEmailVerification();
-        }else if (i == R.id.next) {
-            nextAcrivityMenu();
         }
-        else if (i == R.id.btnBackMenu) {
-            nextAcrivityMenu();
+    }
+
+    @VisibleForTesting
+    public ProgressDialog mProgressDialog;
+
+    public void showProgressDialog() {
+        if (mProgressDialog == null) {
+            mProgressDialog = new ProgressDialog(getActivity());
+            mProgressDialog.setMessage(getString(R.string.loading));
+            mProgressDialog.setIndeterminate(true);
         }
+
+        mProgressDialog.show();
+    }
+
+    public void hideProgressDialog() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.dismiss();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        hideProgressDialog();
     }
 }
