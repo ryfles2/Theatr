@@ -24,6 +24,6 @@ public class AboutUsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-        getActivity().setTitle("Login");
+        getActivity().setTitle("AboutUs");
     }
 }

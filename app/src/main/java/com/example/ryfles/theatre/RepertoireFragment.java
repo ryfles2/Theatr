@@ -24,7 +24,7 @@ public class RepertoireFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
 
 
-        getActivity().setTitle("Login");
+        getActivity().setTitle("Repertoire");
     }
 
 

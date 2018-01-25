@@ -24,6 +24,6 @@ public class ToolsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-        getActivity().setTitle("Login");
+        getActivity().setTitle("Tools");
     }
 }
