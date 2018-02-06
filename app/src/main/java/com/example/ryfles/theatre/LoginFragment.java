@@ -1,6 +1,5 @@
 package com.example.ryfles.theatre;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -18,6 +17,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ryfles.theatre.Common.Common;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -49,6 +49,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     private TextView mStatusTextView;
     private TextView mDetailTextView;
     private EditText mEmailField;
+    private TextView txtFullName;
     private EditText mPasswordField;
     private View view;
 
@@ -79,6 +80,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             View v = inflater.inflate(R.layout.fragment_login, container, false);
             view=v;
             // Views
+
             mStatusTextView = v.findViewById(R.id.status);
             mDetailTextView = v.findViewById(R.id.detail);
             mEmailField = v.findViewById(R.id.field_email);
@@ -320,6 +322,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             //mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
             mDetailTextView.setText("Here will be some information about your accointant");
 
+            Common.currentMailUser=user.getEmail();
 
 
             view.findViewById(R.id.sign_in_button).setVisibility(View.GONE);
@@ -340,6 +343,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             mStatusTextView.setText(R.string.signed_out);
             mDetailTextView.setText(null);
 
+            Common.currentMailUser="Guest";
 
             view.findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
             view.findViewById(R.id.sign_out_and_disconnect).setVisibility(View.GONE);
@@ -348,6 +352,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             mEmailField .setVisibility(View.VISIBLE);
             mPasswordField.setVisibility(View.VISIBLE);
         }
+        //Set mail in menu
+        MenuTheaterActivity.txtFullName.setText(Common.currentMailUser);
     }
 
     @Override

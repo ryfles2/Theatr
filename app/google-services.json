@@ -111,6 +111,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "884480178491-oej0phdevj4113g6b972kpsiq2tdlgp6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ryfles.theatre",
+            "certificate_hash": "2367a31ebce4bab6ff139accdc06ee5ab796c604"
+          }
+        },
+        {
           "client_id": "884480178491-rdti9llssdonosin9p4b26nisa3s4j2h.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
