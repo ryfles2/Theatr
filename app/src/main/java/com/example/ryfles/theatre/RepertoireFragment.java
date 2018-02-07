@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.ryfles.theatre.Interface.ItemClickListener;
 import com.example.ryfles.theatre.Models.DataModel;
+import com.example.ryfles.theatre.Models.MyTickets;
 import com.example.ryfles.theatre.Models.RepertoireModel;
 import com.example.ryfles.theatre.Models.SiteModel;
 import com.example.ryfles.theatre.ViewHolder.DataViewHolder;
@@ -44,7 +45,7 @@ public class RepertoireFragment extends Fragment {
     private DatabaseReference repertuar;
     private RecyclerView recyclerRepertuar;
     private RecyclerView.LayoutManager layoutManager;
-    String chooseFilm,chooseData,posterURL,seatId,branchSeat;
+    String chooseFilm,seatId, titleFilm, dataFilm, timeFilm;
     private FirebaseAuth mAuth;
     @Nullable
     @Override
@@ -57,7 +58,6 @@ public class RepertoireFragment extends Fragment {
         recyclerRepertuar=(RecyclerView)view.findViewById(R.id.repertuaRecyclerMenu);
         recyclerRepertuar.setHasFixedSize(true);
         layoutManager = new GridLayoutManager(getContext(),1);
-       // layoutManager.layoutDecoratedWithMargins(view.findViewById(R.id.repertuaRecyclerMenu),20,0,0,20);
         recyclerRepertuar.setLayoutManager(layoutManager);
         mAuth = FirebaseAuth.getInstance();
 
@@ -79,6 +79,7 @@ public class RepertoireFragment extends Fragment {
                     public void onClick(View view, int position, boolean isLongClick) {
                          chooseFilm = Integer.toString(position+1); // pobranie id filmu i wrzucenie do stringa, +1 bo rekordy w bazie danych zaczynaja sie od 1 a w na liscie od 0
                          imageView.setVisibility(View.VISIBLE);
+                         titleFilm= model.getTytul();
                          Picasso.with(getActivity().getBaseContext()).load(model.getUrl()).into(imageView);
                          loadDate();
 
@@ -97,6 +98,8 @@ public class RepertoireFragment extends Fragment {
             protected void populateViewHolder(DataViewHolder viewHolder, final DataModel model, int position) {
                 viewHolder.txtDataName.setText(model.getData());
                 viewHolder.txtDataGodzina.setText(model.getGodzina());
+                timeFilm=model.getGodzina();
+                dataFilm=model.getData();
 
                 final DataModel local = model;
                 viewHolder.setItemClickListener(new ItemClickListener() {
@@ -130,18 +133,13 @@ public class RepertoireFragment extends Fragment {
                 }
                 else if(model.getStatus().equals("0")) {
                     viewHolder.textView.setBackgroundColor(Color.GREEN);
-                }//|| model.getStatus().equals("3")
-//                else if(model.getStatus().equals("1")   ) {
-//                    viewHolder.textView.setBackgroundColor(Color.YELLOW);
-//                }
+                }
                 else if(model.getStatus().equals("2")) {
                     viewHolder.textView.setBackgroundColor(Color.RED);
                 }
                 else {
                     viewHolder.textView.setBackgroundColor(Color.YELLOW);
                 }
-
-
 
 
                 viewHolder.setItemClickListener(new ItemClickListener() {
@@ -155,30 +153,40 @@ public class RepertoireFragment extends Fragment {
                                 SiteModel model= new SiteModel("0","0");
                                 data.child(position1).setValue(model);
                                 viewHolder.textView.setBackgroundColor(Color.GREEN);
-
+                                Toast.makeText(getContext(),"you canceled the place reservation "+position1,Toast.LENGTH_SHORT).show();
+                               // MyTickets myTickets = new MyTickets(titleFilm,dataFilm,timeFilm,position1);
+                                //data.child(currentUser.getEmail().toString()).setValue(myTickets);
+                                try
+                                {
+                                    database.getReference().child("myTickets/"+currentUser.getUid()).removeValue();
+                                }
+                                catch(Exception e)
+                                {
+                                    Toast.makeText(getContext(),e.toString(),Toast.LENGTH_SHORT).show();
+                                }
                             }
                             else if(status.equals("0")) {
 
                                 SiteModel model= new SiteModel(currentUser.getEmail().toString(),"3");
                                 data.child(position1).setValue(model);
                                 viewHolder.textView.setBackgroundColor(Color.BLUE);
+                                Toast.makeText(getContext(),"you made a reservation for place "+position1,Toast.LENGTH_SHORT).show();
+                                MyTickets myTickets = new MyTickets(titleFilm,dataFilm,timeFilm,position1,seatId);
+                                try
+                                {
+                                    database.getReference().child("myTickets/"+currentUser.getUid()).push().setValue(myTickets);
+                                }
+                                catch(Exception e)
+                                {
+                                    Toast.makeText(getContext(),e.toString(),Toast.LENGTH_SHORT).show();
+                                }
+
                             }
                         }
                         else {
                             Toast.makeText(getContext(),"Please log in",Toast.LENGTH_SHORT).show();
                         }
-//                        if((status.equals("3"))) {
-//                            SiteModel model= new SiteModel("0","0");
-//                            data.child(position1).setValue(model);
-//                            viewHolder.textView.setBackgroundColor(Color.GREEN);
-//
-//                        }
-//                        else if(status.equals("0")) {
-//
-//                            SiteModel model= new SiteModel(currentUser.getEmail().toString(),"3");
-//                            data.child(position1).setValue(model);
-//                            viewHolder.textView.setBackgroundColor(Color.BLUE);
-//                        }
+
                     }
                 });
             }
