@@ -9,9 +9,10 @@ public class RepertoireModel {
     public RepertoireModel() {
     }
 
-    public RepertoireModel(String tytul, String url) {
+    public RepertoireModel(String tytul, String url, String price) {
         this.tytul = tytul;
         this.url = url;
+        this.price=price;
     }
 
     public String getTytul() {
@@ -26,9 +27,17 @@ public class RepertoireModel {
         return url;
     }
 
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
     public void setUrl(String url) {
         this.url = url;
     }
 
-    private String tytul , url;
+    private String tytul , url,price;
 }

@@ -5,7 +5,7 @@ package com.example.ryfles.theatre.Models;
  */
 
 public class MyTicketsModel {
-    String tytul, data, godzina, miejsce, status  ;
+    String tytul, data, godzina, miejsce, status , idMiejsca, price ;
 
     public String getTytul() {
         return tytul;
@@ -13,6 +13,22 @@ public class MyTicketsModel {
 
     public String getStatus() {
         return status;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getIdMiejsca() {
+        return idMiejsca;
+    }
+
+    public void setIdMiejsca(String idMiejsca) {
+        this.idMiejsca = idMiejsca;
     }
 
     public void setStatus(String status) {
@@ -51,12 +67,14 @@ public class MyTicketsModel {
 
 
 
-    public MyTicketsModel(String tytul, String data, String godzina, String miejsce, String status) {
+    public MyTicketsModel(String tytul, String data, String godzina, String miejsce, String status, String idMiejsca, String price) {
         this.tytul = tytul;
         this.data = data;
         this.godzina = godzina;
         this.miejsce = miejsce;
         this.status = status;
+        this.idMiejsca=idMiejsca;
+        this.price=price;
     }
 
     public MyTicketsModel() {

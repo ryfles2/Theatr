@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.ryfles.theatre.Interface.ItemClickListener;
 import com.example.ryfles.theatre.Models.MyTicketsModel;
+import com.example.ryfles.theatre.Models.SiteModel;
 import com.example.ryfles.theatre.ViewHolder.MyTicketsViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,8 +34,7 @@ public class MyTicketsFragment extends Fragment {
     private RecyclerView recyclerMyTickets;
     private RecyclerView.LayoutManager layoutManager;
     private FirebaseAuth mAuth;
-    //public Button btnBuy;
-    //public Button btnReservation;
+    FirebaseUser currentUser;
 
 
     @Nullable
@@ -43,7 +43,7 @@ public class MyTicketsFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_mytickets, container, false);
         database= FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        currentUser = mAuth.getCurrentUser();
 
 
         myTickets = database.getReference("myTickets/"+currentUser.getUid());//+"/01");
@@ -60,13 +60,13 @@ public class MyTicketsFragment extends Fragment {
     private void loadMyTickets() {
         adapterTicket = new FirebaseRecyclerAdapter<MyTicketsModel, MyTicketsViewHolder>(MyTicketsModel.class, R.layout.menu_mytickets1,MyTicketsViewHolder.class,myTickets) {
             @Override
-            protected void populateViewHolder(MyTicketsViewHolder viewHolder, MyTicketsModel model, final int position) {
+            protected void populateViewHolder(MyTicketsViewHolder viewHolder, final MyTicketsModel model, final int position) {
                 viewHolder.txtTytul.setText("Title "+model.getTytul());
                 viewHolder.txtMiejsce.setText("Seat "+model.getMiejsce());
                 viewHolder.txtGodzina.setText("Time "+model.getGodzina());
                 viewHolder.txtData.setText("Data "+model.getData());
                 viewHolder.txtStatus.setText(model.getStatus());
-
+                viewHolder.txtPrice.setText("Price "+model.getPrice());
                 viewHolder.btnBuy.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -77,7 +77,15 @@ public class MyTicketsFragment extends Fragment {
                 viewHolder.btnReservation.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Toast.makeText(getContext(),"btnReservation"+Integer.toString(position),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(),"you canceled the place reservation "+model.getMiejsce(),Toast.LENGTH_SHORT).show();
+
+                        database.getReference().child("myTickets/"+currentUser.getUid()+"/"+model.getIdMiejsca()+model.getMiejsce()).removeValue();
+
+                        DatabaseReference data = database.getReference("idMiejsce/" + model.getIdMiejsca() );
+                        SiteModel modelSite= new SiteModel("0","0","0");
+                        data.child(model.getMiejsce()).setValue(modelSite);
+
+
                     }
                 });
 

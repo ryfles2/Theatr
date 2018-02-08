@@ -10,25 +10,25 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="160dp"
-        android:background="@android:color/black" >
+        android:layout_height="190dp"
+        android:background="@android:color/black">
 
 
         <Button
             android:id="@+id/btnReservation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            android:layout_below="@+id/ticketStatus"
             android:text="Cancel your reservation" />
 
         <Button
             android:id="@+id/btnBuy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+            android:layout_alignBottom="@+id/btnReservation"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/ticketGodzina"
+            android:layout_alignTop="@+id/btnReservation"
             android:layout_marginStart="19dp"
             android:text="Buy a ticket " />
 
@@ -87,8 +87,20 @@
             android:layout_alignParentStart="true"
             android:layout_below="@+id/ticketData"
             android:background="@android:color/darker_gray"
-            android:gravity="left"
+            android:gravity="center"
             android:text=""
+            android:textColor="#FFFF"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/ticketPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/btnReservation"
+            android:layout_below="@+id/ticketGodzina"
+            android:background="@android:color/darker_gray"
+            android:gravity="center"
+            android:text="Price 60"
             android:textColor="#FFFF"
             android:textSize="20sp" />
 

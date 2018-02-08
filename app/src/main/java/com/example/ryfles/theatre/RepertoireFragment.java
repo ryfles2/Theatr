@@ -11,7 +11,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ryfles.theatre.Interface.ItemClickListener;
@@ -49,13 +51,17 @@ public class RepertoireFragment extends Fragment {
     private DatabaseReference repertuar;
     private RecyclerView recyclerRepertuar;
     private RecyclerView.LayoutManager layoutManager;
-    String chooseFilm,seatId, titleFilm, dataFilm, timeFilm;
+    String chooseFilm,seatId, titleFilm, dataFilm, timeFilm, price;
     private FirebaseAuth mAuth;
+    private TextView txtEepertuarPrice;
+    private Button btnBuyTickets;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_repertoire, container, false);
 
+        txtEepertuarPrice = view.findViewById(R.id.repertuarPrice);
+        btnBuyTickets = view.findViewById(R.id.btnBuyTickets);
         database= FirebaseDatabase.getInstance();
         repertuar = database.getReference("Repertual");
         imageView = view.findViewById(R.id.LogoImageView);
@@ -84,6 +90,7 @@ public class RepertoireFragment extends Fragment {
                          chooseFilm = Integer.toString(position+1); // pobranie id filmu i wrzucenie do stringa, +1 bo rekordy w bazie danych zaczynaja sie od 1 a w na liscie od 0
                          imageView.setVisibility(View.VISIBLE);
                          titleFilm= model.getTytul();
+                         price = model.getPrice();
                          Picasso.with(getActivity().getBaseContext()).load(model.getUrl()).into(imageView);
                          loadDate();
 
@@ -122,6 +129,9 @@ public class RepertoireFragment extends Fragment {
     private void loadSites()
     {
         final DatabaseReference data = database.getReference("idMiejsce/" + seatId );
+        btnBuyTickets.setVisibility(View.VISIBLE);
+        txtEepertuarPrice.setVisibility(View.VISIBLE);
+
         adapterSite = new FirebaseRecyclerAdapter<SiteModel, SiteViewHolder>(SiteModel.class,R.layout.menu_id_data_list,SiteViewHolder.class,data) {
             @Override
             protected void populateViewHolder(final SiteViewHolder viewHolder,  SiteModel model, final int position) {
@@ -134,6 +144,14 @@ public class RepertoireFragment extends Fragment {
                     user =model.getIdKupujacego().equals(currentUser.getEmail().toString());
                 if( user && model.getStatus().equals("3") ){
                     viewHolder.textView.setBackgroundColor(Color.BLUE);
+                    try {
+                        int temp1 = Integer.parseInt(txtEepertuarPrice.getText().toString());
+                        int temp2 = Integer.parseInt(price.toString());
+                        int temp3=temp1+temp2;
+                        txtEepertuarPrice.setText(Integer.toString(temp3));
+                    } catch(NumberFormatException e) {
+                        Toast.makeText(getContext(),e.toString(),Toast.LENGTH_SHORT).show();
+                    }
                 }
                 else if(model.getStatus().equals("0")) {
                     viewHolder.textView.setBackgroundColor(Color.GREEN);
@@ -160,6 +178,15 @@ public class RepertoireFragment extends Fragment {
                                 data.child(position1).setValue(model);
                                 viewHolder.textView.setBackgroundColor(Color.GREEN);
                                 Toast.makeText(getContext(),"you canceled the place reservation "+position1,Toast.LENGTH_SHORT).show();
+
+                                try {
+                                    int temp1 = Integer.parseInt(txtEepertuarPrice.getText().toString());
+                                    int temp2 = Integer.parseInt(price.toString());
+                                    int temp3=temp1-temp2;
+                                    txtEepertuarPrice.setText(Integer.toString(temp3));
+                                } catch(NumberFormatException e) {
+                                    Toast.makeText(getContext(),e.toString(),Toast.LENGTH_SHORT).show();
+                                }
                                 try
                                 {
                                     database.getReference().child("myTickets/"+currentUser.getUid()+"/"+seatId+position1).removeValue();
@@ -176,7 +203,7 @@ public class RepertoireFragment extends Fragment {
                                 data.child(position1).setValue(model);
                                 viewHolder.textView.setBackgroundColor(Color.BLUE);
                                 Toast.makeText(getContext(),"you made a reservation for place "+position1,Toast.LENGTH_SHORT).show();
-                                final MyTicketsModel myTicketsModel = new MyTicketsModel(titleFilm,dataFilm,timeFilm, position1, "Reserved");
+                                final MyTicketsModel myTicketsModel = new MyTicketsModel(titleFilm,dataFilm,timeFilm, position1, "Reserved", seatId, price);
                                 try
                                             {                                                                           //.push()
                                     database.getReference().child("myTickets/"+currentUser.getUid()+"/"+seatId+position1).setValue(myTicketsModel);
