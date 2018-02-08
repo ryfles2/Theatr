@@ -13,7 +13,7 @@ import com.example.ryfles.theatre.R;
  * Created by Ryfles on 2018-02-07.
  */
 
-public class MyTicketsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class MyTicketsViewHolder extends RecyclerView.ViewHolder{// implements View.OnClickListener {
 
     public TextView txtData;
     public TextView txtGodzina;
@@ -23,11 +23,6 @@ public class MyTicketsViewHolder extends RecyclerView.ViewHolder implements View
     public Button btnBuy;
     public Button btnReservation;
 
-    private ItemClickListener itemClickListener;
-
-    public void setItemClickListener(ItemClickListener itemClickListener) {
-        this.itemClickListener = itemClickListener;
-    }
 
     public MyTicketsViewHolder(View itemView) {
         super(itemView);
@@ -39,13 +34,7 @@ public class MyTicketsViewHolder extends RecyclerView.ViewHolder implements View
         btnBuy = itemView.findViewById(R.id.btnBuy);
         btnReservation = itemView.findViewById(R.id.btnReservation);
 
-        itemView.setOnClickListener(this);
 
-    }
-
-    @Override
-    public void onClick(View view) {
-        itemClickListener.onClick(view,getAdapterPosition(),false);
     }
 
 

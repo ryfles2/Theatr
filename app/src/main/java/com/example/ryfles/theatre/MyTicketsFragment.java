@@ -66,13 +66,18 @@ public class MyTicketsFragment extends Fragment {
                 viewHolder.txtGodzina.setText("Time "+model.getGodzina());
                 viewHolder.txtData.setText("Data "+model.getData());
                 viewHolder.txtStatus.setText(model.getStatus());
-                //viewHolder.btnBuy = (Button) view.findViewById(R.id.btnBuy);
-                //viewHolder.btnReservation = (Button) view.findViewById(R.id.btnReservation);
 
-                viewHolder.setItemClickListener(new ItemClickListener() {
+                viewHolder.btnBuy.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View view, int position, boolean isLongClick) {
+                    public void onClick(View view) {
+                        Toast.makeText(getContext(),"btnBuy"+Integer.toString(position),Toast.LENGTH_SHORT).show();
+                    }
+                });
 
+                viewHolder.btnReservation.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(getContext(),"btnReservation"+Integer.toString(position),Toast.LENGTH_SHORT).show();
                     }
                 });
 
