@@ -297,6 +297,7 @@ public class RepertoireFragment extends Fragment {
                         database.getReference().child("myTickets/"+mAuth.getCurrentUser().getUid()+"/"+seatId+i).child("status").setValue("Bought");
                         DatabaseReference dataTmp = database.getReference("idMiejsce/" + seatId );
                         dataTmp.child(i).child("status").setValue("2");
+                        txtEepertuarPrice.setText("0");
                     }
 
                 }
