@@ -4,39 +4,23 @@ package com.example.ryfles.theatre.Models;
  * Created by Ryfles on 2018-02-07.
  */
 
-public class MyTickets {
-    String tytul, data, godzina , miejsce ,idMiejce;
+public class MyTicketsModel {
+    String tytul, data, godzina, miejsce, status  ;
 
     public String getTytul() {
         return tytul;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public void setTytul(String tytul) {
-        tytul = tytul;
-    }
-
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
-    }
-
-    public String getIdMiejce() {
-        return idMiejce;
-    }
-
-    public void setIdMiejce(String idMiejce) {
-        this.idMiejce = idMiejce;
-    }
-
-    public String getGodzina() {
-        return godzina;
-    }
-
-    public void setGodzina(String godzina) {
-        this.godzina = godzina;
+        this.tytul = tytul;
     }
 
     public String getMiejsce() {
@@ -47,14 +31,34 @@ public class MyTickets {
         this.miejsce = miejsce;
     }
 
-    public MyTickets(String tytul, String data, String godzina, String miejsce, String idMiejce) {
-        this.tytul = tytul;
-        this.data = data;
-        this.idMiejce = idMiejce;
-        this.godzina = godzina;
-        this.miejsce = miejsce;
+    public String getData() {
+        return data;
     }
 
-    public MyTickets() {
+    public void setData(String data) {
+        this.data = data;
+    }
+
+
+
+    public String getGodzina() {
+        return godzina;
+    }
+
+    public void setGodzina(String godzina) {
+        this.godzina = godzina;
+    }
+
+
+
+    public MyTicketsModel(String tytul, String data, String godzina, String miejsce, String status) {
+        this.tytul = tytul;
+        this.data = data;
+        this.godzina = godzina;
+        this.miejsce = miejsce;
+        this.status = status;
+    }
+
+    public MyTicketsModel() {
     }
 }

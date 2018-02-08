@@ -35,44 +35,7 @@ public class PaymentFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_payment, container, false);
 
-        txtTytul=(TextView)view.findViewById(R.id.txtTytul);
-        txtUrl=(TextView)view.findViewById(R.id.txtUrl);
-        btnGet=(Button)view.findViewById(R.id.btnGet);
-        etxtUrl=(EditText)view.findViewById(R.id.etxtUrl);
 
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference tableRepertual = database.getReference("Repertual");
-
-        btnGet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                tableRepertual.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.child("01").exists()) {
-                            //Get Repertual information
-                            //zczytywanie z bazy
-                            RepertoireModel repertoireModel = dataSnapshot.child("01").getValue(RepertoireModel.class);
-                            txtTytul.setText(repertoireModel.getTytul().toString());
-                            txtUrl.setText(repertoireModel.getUrl().toString());
-                            //RepertoireModel user = new RepertoireModel("tutul1","https://i.jeded.com/i/troy.11710.jpg");
-                            //tableRepertual.child("01").setValue(user);
-                        }
-                        else{
-                            txtUrl.setText("Nie ma");
-                        }
-                        //dodawanie do bazy
-//                        RepertoireModel user = new RepertoireModel("tutul1","https://i.jeded.com/i/troy.11710.jpg");
-//                        tableRepertual.child("01").setValue(user);
-                    }
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-            }
-
-        });
 
         return view;
     }

@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import com.example.ryfles.theatre.Interface.ItemClickListener;
 import com.example.ryfles.theatre.Models.DataModel;
-import com.example.ryfles.theatre.Models.MyTickets;
+import com.example.ryfles.theatre.Models.MyTicketsModel;
 import com.example.ryfles.theatre.Models.RepertoireModel;
 import com.example.ryfles.theatre.Models.SiteModel;
 import com.example.ryfles.theatre.ViewHolder.DataViewHolder;
@@ -25,8 +25,12 @@ import com.example.ryfles.theatre.ViewHolder.SiteViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.squareup.picasso.Picasso;
 
 
@@ -37,7 +41,7 @@ import com.squareup.picasso.Picasso;
 public class RepertoireFragment extends Fragment {
 
     private FirebaseRecyclerAdapter<RepertoireModel,RepertoireViewHolder> adapter;
-    FirebaseRecyclerAdapter<DataModel, DataViewHolder> adapterDate;
+    private FirebaseRecyclerAdapter<DataModel, DataViewHolder> adapterDate;
     private FirebaseRecyclerAdapter<SiteModel,SiteViewHolder> adapterSite;
     private View view;
     private ImageView imageView;
@@ -105,7 +109,7 @@ public class RepertoireFragment extends Fragment {
                 viewHolder.setItemClickListener(new ItemClickListener() {
                     @Override
                     public void onClick(View view, int position, boolean isLongClick) {
-                        seatId = "0" + Integer.toString(position+1);
+                        seatId = "0" +model.getIdMiejsce(); //Integer.toString(position+1);
                         loadSites();
                     }
                 });
@@ -120,7 +124,7 @@ public class RepertoireFragment extends Fragment {
         final DatabaseReference data = database.getReference("idMiejsce/" + seatId );
         adapterSite = new FirebaseRecyclerAdapter<SiteModel, SiteViewHolder>(SiteModel.class,R.layout.menu_id_data_list,SiteViewHolder.class,data) {
             @Override
-            protected void populateViewHolder(final SiteViewHolder viewHolder, final SiteModel model, final int position) {
+            protected void populateViewHolder(final SiteViewHolder viewHolder,  SiteModel model, final int position) {
                 viewHolder.textView.setText(Integer.toString(position+1));
                 final String status = model.getStatus();
                 final String IdKupujacego = model.getIdKupujacego();
@@ -134,13 +138,15 @@ public class RepertoireFragment extends Fragment {
                 else if(model.getStatus().equals("0")) {
                     viewHolder.textView.setBackgroundColor(Color.GREEN);
                 }
+                else if(model.getStatus().equals("2") && user) {
+                    viewHolder.textView.setBackgroundColor(Color.CYAN);
+                }
                 else if(model.getStatus().equals("2")) {
                     viewHolder.textView.setBackgroundColor(Color.RED);
                 }
                 else {
                     viewHolder.textView.setBackgroundColor(Color.YELLOW);
                 }
-
 
                 viewHolder.setItemClickListener(new ItemClickListener() {
 
@@ -150,15 +156,14 @@ public class RepertoireFragment extends Fragment {
                         if (currentUser != null)
                         {
                             if((status.equals("3")) && IdKupujacego.equals(currentUser.getEmail().toString()) ) {
-                                SiteModel model= new SiteModel("0","0");
+                                SiteModel model= new SiteModel("0","0","0");
                                 data.child(position1).setValue(model);
                                 viewHolder.textView.setBackgroundColor(Color.GREEN);
                                 Toast.makeText(getContext(),"you canceled the place reservation "+position1,Toast.LENGTH_SHORT).show();
-                               // MyTickets myTickets = new MyTickets(titleFilm,dataFilm,timeFilm,position1);
-                                //data.child(currentUser.getEmail().toString()).setValue(myTickets);
                                 try
                                 {
-                                    database.getReference().child("myTickets/"+currentUser.getUid()).removeValue();
+                                    database.getReference().child("myTickets/"+currentUser.getUid()+"/"+seatId+position1).removeValue();
+
                                 }
                                 catch(Exception e)
                                 {
@@ -167,14 +172,15 @@ public class RepertoireFragment extends Fragment {
                             }
                             else if(status.equals("0")) {
 
-                                SiteModel model= new SiteModel(currentUser.getEmail().toString(),"3");
+                                SiteModel model= new SiteModel(currentUser.getEmail().toString(),"3","0");
                                 data.child(position1).setValue(model);
                                 viewHolder.textView.setBackgroundColor(Color.BLUE);
                                 Toast.makeText(getContext(),"you made a reservation for place "+position1,Toast.LENGTH_SHORT).show();
-                                MyTickets myTickets = new MyTickets(titleFilm,dataFilm,timeFilm,position1,seatId);
+                                final MyTicketsModel myTicketsModel = new MyTicketsModel(titleFilm,dataFilm,timeFilm, position1, "Reserved");
                                 try
-                                {
-                                    database.getReference().child("myTickets/"+currentUser.getUid()).push().setValue(myTickets);
+                                            {                                                                           //.push()
+                                    database.getReference().child("myTickets/"+currentUser.getUid()+"/"+seatId+position1).setValue(myTicketsModel);
+
                                 }
                                 catch(Exception e)
                                 {

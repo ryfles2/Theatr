@@ -7,13 +7,24 @@ package com.example.ryfles.theatre.Models;
 public class SiteModel {
     private String idKupujacego;
     private String status;
+    private String pushKeyValue;
 
     public SiteModel() {
     }
 
-    public SiteModel(String idKupujacego, String status) {
+    public String getPushKeyValue() {
+        return pushKeyValue;
+    }
+
+    public void setPushKeyValue(String pushKeyValue) {
+        this.pushKeyValue = pushKeyValue;
+    }
+
+    public SiteModel(String idKupujacego, String status , String pushKeyValue) {
         this.idKupujacego = idKupujacego;
         this.status = status;
+        this.pushKeyValue=pushKeyValue;
+
     }
 
     public String getIdKupujacego() {
