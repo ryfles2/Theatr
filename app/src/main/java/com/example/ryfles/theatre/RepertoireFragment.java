@@ -64,7 +64,7 @@ public class RepertoireFragment extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
     String chooseFilm,seatId, titleFilm, dataFilm, timeFilm, price;
     private FirebaseAuth mAuth;
-    private TextView txtEepertuarPrice;
+    private TextView txtEepertuarPrice, txtRepertuarInfo;
     private Button btnBuyTickets;
     Set<String> set;
 
@@ -79,6 +79,7 @@ public class RepertoireFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_repertoire, container, false);
 
+        txtRepertuarInfo = view.findViewById(R.id.repertuarInfo);
         txtEepertuarPrice = view.findViewById(R.id.repertuarPrice);
         btnBuyTickets = view.findViewById(R.id.btnBuyTickets);
         database= FirebaseDatabase.getInstance();
@@ -115,8 +116,10 @@ public class RepertoireFragment extends Fragment {
                     public void onClick(View view, int position, boolean isLongClick) {
                          chooseFilm = Integer.toString(position+1); // pobranie id filmu i wrzucenie do stringa, +1 bo rekordy w bazie danych zaczynaja sie od 1 a w na liscie od 0
                          imageView.setVisibility(View.VISIBLE);
+                         txtRepertuarInfo.setVisibility(View.VISIBLE);
                          titleFilm= model.getTytul();
                          price = model.getPrice();
+                         txtRepertuarInfo.setText(model.getOpis());
                          Picasso.with(getActivity().getBaseContext()).load(model.getUrl()).into(imageView);
                          loadDate();
 
@@ -143,6 +146,7 @@ public class RepertoireFragment extends Fragment {
                     @Override
                     public void onClick(View view, int position, boolean isLongClick) {
                         seatId = "0" +model.getIdMiejsce(); //Integer.toString(position+1);
+                        txtRepertuarInfo.setVisibility(View.INVISIBLE);
                         loadSites();
                     }
                 });

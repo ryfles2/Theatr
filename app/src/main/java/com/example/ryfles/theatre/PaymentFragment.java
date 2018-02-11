@@ -1,21 +1,20 @@
 package com.example.ryfles.theatre;
 
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
 
-import com.example.ryfles.theatre.Models.RepertoireModel;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import java.util.Locale;
 
 /**
  * Created by Ryfles on 2018-01-23.
@@ -24,10 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 public class PaymentFragment extends Fragment {
 
     private View view;
-    private TextView txtTytul;
-    private TextView txtUrl;
-    private Button btnGet;
-    private EditText etxtUrl;
+
 
     @Nullable
     @Override
@@ -35,7 +31,34 @@ public class PaymentFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_payment, container, false);
 
+        //String uri = String.format(Locale.ENGLISH, "geo:%f,%f", 51.776765, 19.489285);
+        String uri = String.format(Locale.ENGLISH, "geo:0,0?q=Pomorska 149/153, 90-001 Łódź");
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+        intent.setPackage("com.google.android.apps.maps");
 
+
+        try
+        {
+            startActivity(intent);
+        }
+        catch(ActivityNotFoundException ex)
+        {
+            try
+            {
+                Intent unrestrictedIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                startActivity(unrestrictedIntent);
+            }
+            catch(ActivityNotFoundException innerEx)
+            {
+                Toast.makeText(getContext(), "Please install a maps application", Toast.LENGTH_LONG).show();
+            }
+        }
+
+        Fragment fragment = new RepertoireFragment();
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.content_menu_theater, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
 
         return view;
     }
@@ -45,6 +68,6 @@ public class PaymentFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-        getActivity().setTitle("Payments");
+        getActivity().setTitle("Map");
     }
 }

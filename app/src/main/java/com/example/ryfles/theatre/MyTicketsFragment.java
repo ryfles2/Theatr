@@ -98,6 +98,7 @@ public class MyTicketsFragment extends Fragment  {
                 viewHolder.txtStatus.setText(model.getStatus());
                 viewHolder.txtPrice.setText("Price "+model.getPrice());
 
+
                 tempIdMiejsca=model.getIdMiejsca();
                 tempMiejsce=model.getMiejsce();
 
