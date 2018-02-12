@@ -339,7 +339,8 @@ public class RepertoireFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getActivity().setTitle("Repertoire");
+        //getActivity().setTitle("Repertoire");
+          getActivity().setTitle(getString(R.string.repertoire_category));
     }
     @Override
     public void onCreate(Bundle savedInstanceState) {
