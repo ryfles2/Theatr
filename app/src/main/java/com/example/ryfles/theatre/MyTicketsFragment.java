@@ -76,13 +76,18 @@ public class MyTicketsFragment extends Fragment  {
         intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION,confing);
         getActivity().startService(intent);
 
-        myTickets = database.getReference("myTickets/"+currentUser.getUid());//+"/01");
-        recyclerMyTickets=(RecyclerView)view.findViewById(R.id.myTicketRecyclerMenu);
-        recyclerMyTickets.setHasFixedSize(true);
-        layoutManager = new GridLayoutManager(getContext(),1);
-        recyclerMyTickets.setLayoutManager(layoutManager);
+        if (currentUser != null)
+        {
+            myTickets = database.getReference("myTickets/"+currentUser.getUid());//+"/01");
+            recyclerMyTickets=(RecyclerView)view.findViewById(R.id.myTicketRecyclerMenu);
+            recyclerMyTickets.setHasFixedSize(true);
+            layoutManager = new GridLayoutManager(getContext(),1);
+            recyclerMyTickets.setLayoutManager(layoutManager);
 
-        loadMyTickets();
+            loadMyTickets();
+
+        }
+
 
         return view;
     }
@@ -96,11 +101,12 @@ public class MyTicketsFragment extends Fragment  {
                 viewHolder.txtGodzina.setText("Time "+model.getGodzina());
                 viewHolder.txtData.setText("Data "+model.getData());
                 viewHolder.txtStatus.setText(model.getStatus());
-                viewHolder.txtPrice.setText("Regular ticket: "+model.getPrice());
-                viewHolder.txtPrice2.setText("Concession ticket: "+model.getPrice2());
+                //viewHolder.txtPrice.setVisibility(View.INVISIBLE);
+                //viewHolder.txtPrice2.setVisibility(View.INVISIBLE);
+                //viewHolder.txtPrice.setText("Regular ticket: "+model.getPrice()+" $");
+                //viewHolder.txtPrice2.setText("Concession ticket: "+model.getPrice2()+" $");
 
-                tempIdMiejsca=model.getIdMiejsca();
-                tempMiejsce=model.getMiejsce();
+
 
                 if(model.getStatus().equals("Reserved"))
                 {
@@ -116,7 +122,22 @@ public class MyTicketsFragment extends Fragment  {
                 viewHolder.btnBuy.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        startPayment(Integer.parseInt(model.getPrice().toString()));
+
+                        CharSequence colors[] = new CharSequence[] {"Regular ticket: "+model.getPrice(), "Concession ticket: "+model.getPrice2()};
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setTitle("Select the type of ticket");
+                        builder.setItems(colors, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // the user clicked on colors[which]
+                            }
+                        });
+                        builder.show();
+
+                        tempIdMiejsca=model.getIdMiejsca();
+                        tempMiejsce=model.getMiejsce();
+                        //startPayment(Integer.parseInt(model.getPrice().toString()));
                     }
                 });
 

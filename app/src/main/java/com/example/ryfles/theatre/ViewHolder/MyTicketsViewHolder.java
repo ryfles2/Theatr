@@ -34,8 +34,8 @@ public class MyTicketsViewHolder extends RecyclerView.ViewHolder{// implements V
         txtMiejsce = itemView.findViewById(R.id.ticketMiejsce);
         txtTytul = itemView.findViewById(R.id.ticketTytul);
         txtStatus = itemView.findViewById(R.id.ticketStatus);
-        txtPrice = itemView.findViewById(R.id.ticketPrice);
-        txtPrice2 = itemView.findViewById(R.id.ticketPrice2);
+        //txtPrice = itemView.findViewById(R.id.ticketPrice);
+        //txtPrice2 = itemView.findViewById(R.id.ticketPrice2);
         btnBuy = itemView.findViewById(R.id.btnBuy);
         btnReservation = itemView.findViewById(R.id.btnReservation);
 

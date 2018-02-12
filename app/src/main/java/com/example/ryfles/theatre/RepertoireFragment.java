@@ -122,7 +122,7 @@ public class RepertoireFragment extends Fragment {
                          price = model.getPrice();
                          price2=model.getPrice2();
                          //txtRepertuarInfo.setText(model.getOpis());
-                         txtRepertuarInfo.setText("Regular ticket: "+price+ "\nConcession ticket: "+price2+"\n"+model.getOpis());
+                         txtRepertuarInfo.setText("Regular ticket: "+price+" $"+ "\nConcession ticket: "+price2+" $"+"\n"+model.getOpis());
                          Picasso.with(getActivity().getBaseContext()).load(model.getUrl()).into(imageView);
                          loadDate();
 
@@ -263,11 +263,20 @@ public class RepertoireFragment extends Fragment {
                     @Override
                     public void onClick(View view) {
                         //startPayment(Integer.parseInt(txtEepertuarPrice.getText().toString()));
-                        Fragment fragment = new MyTicketsFragment();
-                        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.content_menu_theater, fragment);
-                        fragmentTransaction.addToBackStack(null);
-                        fragmentTransaction.commit();
+
+                        if(currentUser!=null)
+                        {
+                            Fragment fragment = new MyTicketsFragment();
+                            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.replace(R.id.content_menu_theater, fragment);
+                            fragmentTransaction.addToBackStack(null);
+                            fragmentTransaction.commit();
+                        }
+                        else
+                        {
+                            Toast.makeText(getContext(),"Please log in",Toast.LENGTH_SHORT).show();
+                        }
+
                     }
                 });
             }

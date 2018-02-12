@@ -10,7 +10,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="253dp"
+        android:layout_height="198dp"
         android:background="@android:color/black">
 
 
@@ -20,7 +20,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginBottom="17dp"
+            android:layout_below="@+id/ticketGodzina"
+            android:layout_marginStart="48dp"
+            android:layout_toEndOf="@+id/btnBuy"
             android:text="Cancel your reservation" />
 
         <Button
@@ -93,29 +95,29 @@
             android:textColor="#FFFF"
             android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/ticketPrice"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/btnReservation"
-            android:layout_below="@+id/ticketGodzina"
-            android:background="@android:color/darker_gray"
-            android:gravity="center"
-            android:text="Price "
-            android:textColor="#FFFF"
-            android:textSize="20sp" />
+        <!--<TextView-->
+        <!--android:id="@+id/ticketPrice"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignEnd="@+id/btnReservation"-->
+        <!--android:layout_below="@+id/ticketGodzina"-->
+        <!--android:background="@android:color/darker_gray"-->
+        <!--android:gravity="center"-->
+        <!--android:text="Price "-->
+        <!--android:textColor="#FFFF"-->
+        <!--android:textSize="20sp" />-->
 
-        <TextView
-            android:id="@+id/ticketPrice2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/ticketPrice"
-            android:background="@android:color/darker_gray"
-            android:gravity="center"
-            android:text="Price "
-            android:textColor="#FFFF"
-            android:textSize="20sp" />
+        <!--<TextView-->
+        <!--android:id="@+id/ticketPrice2"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_below="@+id/ticketPrice"-->
+        <!--android:background="@android:color/darker_gray"-->
+        <!--android:gravity="center"-->
+        <!--android:text="Price "-->
+        <!--android:textColor="#FFFF"-->
+        <!--android:textSize="20sp" />-->
 
 
     </RelativeLayout>
