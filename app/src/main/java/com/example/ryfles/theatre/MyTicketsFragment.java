@@ -123,6 +123,9 @@ public class MyTicketsFragment extends Fragment  {
                     @Override
                     public void onClick(View view) {
 
+                        tempIdMiejsca=model.getIdMiejsca();
+                        tempMiejsce=model.getMiejsce();
+
                         CharSequence colors[] = new CharSequence[] {"Regular ticket: "+model.getPrice(), "Concession ticket: "+model.getPrice2()};
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -131,12 +134,21 @@ public class MyTicketsFragment extends Fragment  {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 // the user clicked on colors[which]
+                                //Toast.makeText(getContext(), String.valueOf(which) ,Toast.LENGTH_SHORT).show();
+                                if(which==0)
+                                {
+                                    startPayment(Integer.parseInt(model.getPrice().toString()));
+                                }
+                                else
+                                {
+                                    startPayment(Integer.parseInt(model.getPrice2().toString()));
+                                }
                             }
                         });
                         builder.show();
 
-                        tempIdMiejsca=model.getIdMiejsca();
-                        tempMiejsce=model.getMiejsce();
+                        //tempIdMiejsca=model.getIdMiejsca();
+                        //tempMiejsce=model.getMiejsce();
                         //startPayment(Integer.parseInt(model.getPrice().toString()));
                     }
                 });
