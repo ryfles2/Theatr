@@ -21,6 +21,7 @@ public class MyTicketsViewHolder extends RecyclerView.ViewHolder{// implements V
     public TextView txtTytul;
     public TextView txtStatus;
     public TextView txtPrice;
+    public TextView txtPrice2;
     public Button btnBuy;
     public Button btnReservation;
 
@@ -34,6 +35,7 @@ public class MyTicketsViewHolder extends RecyclerView.ViewHolder{// implements V
         txtTytul = itemView.findViewById(R.id.ticketTytul);
         txtStatus = itemView.findViewById(R.id.ticketStatus);
         txtPrice = itemView.findViewById(R.id.ticketPrice);
+        txtPrice2 = itemView.findViewById(R.id.ticketPrice2);
         btnBuy = itemView.findViewById(R.id.btnBuy);
         btnReservation = itemView.findViewById(R.id.btnReservation);
 

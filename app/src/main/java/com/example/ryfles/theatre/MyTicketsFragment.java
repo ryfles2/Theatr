@@ -96,8 +96,8 @@ public class MyTicketsFragment extends Fragment  {
                 viewHolder.txtGodzina.setText("Time "+model.getGodzina());
                 viewHolder.txtData.setText("Data "+model.getData());
                 viewHolder.txtStatus.setText(model.getStatus());
-                viewHolder.txtPrice.setText("Price "+model.getPrice());
-
+                viewHolder.txtPrice.setText("Regular ticket: "+model.getPrice());
+                viewHolder.txtPrice2.setText("Concession ticket: "+model.getPrice2());
 
                 tempIdMiejsca=model.getIdMiejsca();
                 tempMiejsce=model.getMiejsce();

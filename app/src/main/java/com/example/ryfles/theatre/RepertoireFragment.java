@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -62,7 +63,7 @@ public class RepertoireFragment extends Fragment {
     private DatabaseReference repertuar;
     private RecyclerView recyclerRepertuar;
     private RecyclerView.LayoutManager layoutManager;
-    String chooseFilm,seatId, titleFilm, dataFilm, timeFilm, price;
+    String chooseFilm,seatId, titleFilm, dataFilm, timeFilm, price, price2;
     private FirebaseAuth mAuth;
     private TextView txtEepertuarPrice, txtRepertuarInfo;
     private Button btnBuyTickets;
@@ -119,7 +120,9 @@ public class RepertoireFragment extends Fragment {
                          txtRepertuarInfo.setVisibility(View.VISIBLE);
                          titleFilm= model.getTytul();
                          price = model.getPrice();
-                         txtRepertuarInfo.setText(model.getOpis());
+                         price2=model.getPrice2();
+                         //txtRepertuarInfo.setText(model.getOpis());
+                         txtRepertuarInfo.setText("Regular ticket: "+price+ "\nConcession ticket: "+price2+"\n"+model.getOpis());
                          Picasso.with(getActivity().getBaseContext()).load(model.getUrl()).into(imageView);
                          loadDate();
 
@@ -160,7 +163,7 @@ public class RepertoireFragment extends Fragment {
     {
         final DatabaseReference data = database.getReference("idMiejsce/" + seatId );
         btnBuyTickets.setVisibility(View.VISIBLE);
-        txtEepertuarPrice.setVisibility(View.VISIBLE);
+        //txtEepertuarPrice.setVisibility(View.VISIBLE);
 
         adapterSite = new FirebaseRecyclerAdapter<SiteModel, SiteViewHolder>(SiteModel.class,R.layout.menu_id_data_list,SiteViewHolder.class,data) {
             @Override
@@ -236,7 +239,7 @@ public class RepertoireFragment extends Fragment {
                                 data.child(position1).setValue(model);
                                 viewHolder.textView.setBackgroundColor(Color.BLUE);
                                 Toast.makeText(getContext(),"you made a reservation for place "+position1,Toast.LENGTH_SHORT).show();
-                                final MyTicketsModel myTicketsModel = new MyTicketsModel(titleFilm,dataFilm,timeFilm, position1, "Reserved", seatId, price);
+                                final MyTicketsModel myTicketsModel = new MyTicketsModel(titleFilm,dataFilm,timeFilm, position1, "Reserved", seatId, price, price2);
                                 set.add(position1);
                                 try
                                             {                                                                           //.push()
@@ -259,7 +262,12 @@ public class RepertoireFragment extends Fragment {
                 btnBuyTickets.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        startPayment(Integer.parseInt(txtEepertuarPrice.getText().toString()));
+                        //startPayment(Integer.parseInt(txtEepertuarPrice.getText().toString()));
+                        Fragment fragment = new MyTicketsFragment();
+                        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.content_menu_theater, fragment);
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
                     }
                 });
             }
