@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Theatre</string>
+    <string name="app_name">M and R Theathre</string>
     <string name="label_google_sign_in">Firebase + Google Sign In</string>
     <string name="desc_google_sign_in">Use a Google Sign In credential to authenticate with Firebase.</string>
 
@@ -68,6 +68,7 @@
 
     <string name="twitter_status_fmt">Twitter User: %s</string>
     <string name="twitter_title_text">Twitter Login</string>
+    <string name="repertoire_category">Repertoire</string>
 
     <string name="firebaseui_status_fmt">Firebase User: %s</string>
     <string name="firebaseui_title_text">FirebaseUI Auth</string>
