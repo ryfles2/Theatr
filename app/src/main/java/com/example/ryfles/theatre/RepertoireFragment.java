@@ -89,7 +89,7 @@ public class RepertoireFragment extends Fragment {
         imageView = view.findViewById(R.id.LogoImageView);
         recyclerRepertuar=(RecyclerView)view.findViewById(R.id.repertuaRecyclerMenu);
         recyclerRepertuar.setHasFixedSize(true);
-        layoutManager = new GridLayoutManager(getContext(),1);
+        layoutManager = new GridLayoutManager(getContext(),2);
         recyclerRepertuar.setLayoutManager(layoutManager);
         mAuth = FirebaseAuth.getInstance();
 
