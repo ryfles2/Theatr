@@ -151,7 +151,7 @@ public class RepertoireFragment extends Fragment {
                     @Override
                     public void onClick(View view, int position, boolean isLongClick) {
                         seatId = "0" +model.getIdMiejsce(); //Integer.toString(position+1);
-                        txtRepertuarInfo.setVisibility(View.INVISIBLE);
+                        txtRepertuarInfo.setVisibility(View.GONE);
                         loadSites();
                     }
                 });

@@ -44,7 +44,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text = "Wpisz sobie opis dziadu"
+                android:text = "https://github.com/ryfles2"
                 android:gravity="center" />
         </LinearLayout>
 
