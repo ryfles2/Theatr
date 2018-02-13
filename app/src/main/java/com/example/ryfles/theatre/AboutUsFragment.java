@@ -24,6 +24,7 @@ public class AboutUsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-        getActivity().setTitle("AboutUs");
+        //getActivity().setTitle("AboutUs");
+        getActivity().setTitle(getString(R.string.category_about_us));
     }
 }

@@ -227,7 +227,8 @@ public class MyTicketsFragment extends Fragment  {
         super.onViewCreated(view, savedInstanceState);
 
 
-        getActivity().setTitle("MyTickets");
+        //getActivity().setTitle("MyTickets");
+        getActivity().setTitle(getString(R.string.category_tickets));
     }
 
 }

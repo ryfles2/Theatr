@@ -18,9 +18,9 @@
             android:id="@+id/google_icon"
             style="@style/ThemeOverlay.FirebaseIcon"
             android:layout_width="match_parent"
-            android:layout_height="103dp"
+            android:layout_height="match_parent"
             android:contentDescription="@string/desc_firebase_lockup"
-            android:src="@drawable/firebase_lockup_400" />
+            android:src="@mipmap/theatre512" />
 
         <TextView
             android:id="@+id/status"

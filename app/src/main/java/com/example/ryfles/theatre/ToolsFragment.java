@@ -24,6 +24,7 @@ public class ToolsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-        getActivity().setTitle("Tools");
+        //getActivity().setTitle("Tools");
+        getActivity().setTitle(getString(R.string.category_help));
     }
 }

@@ -401,6 +401,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         super.onViewCreated(view, savedInstanceState);
 
 
-        getActivity().setTitle("Login");
+        //getActivity().setTitle("Login");
+        getActivity().setTitle(getString(R.string.category_login));
     }
 }
