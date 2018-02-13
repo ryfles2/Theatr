@@ -29,7 +29,8 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="200dp"
-                android:src="@drawable/polanin"/>
+                android:src="@drawable/polanin"
+                android:layout_margin="5dp"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -52,6 +53,26 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_weight="1">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
+                android:src="@drawable/jcb"
+                android:layout_margin="5dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text = "Marcin"
+                android:gravity="center" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text = "Jastrzębski"
+                android:gravity="center" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text = "Wpisz sobie opis dziadu"
+                android:gravity="center" />
 
         </LinearLayout>
 
