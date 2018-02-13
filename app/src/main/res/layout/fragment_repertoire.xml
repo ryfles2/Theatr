@@ -27,6 +27,8 @@
         android:textColor="#FFFF"
         android:textSize="20sp"
         android:visibility="gone"
+        android:maxLines = "5"
+        android:scrollbars = "vertical"
         />
 
     <android.support.v7.widget.RecyclerView

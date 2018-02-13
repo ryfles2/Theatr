@@ -32,7 +32,8 @@ public class PaymentFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_payment, container, false);
 
         //String uri = String.format(Locale.ENGLISH, "geo:%f,%f", 51.776765, 19.489285);
-        String uri = String.format(Locale.ENGLISH, "geo:0,0?q=Pomorska 149/153, 90-001 Łódź");
+        //String uri = String.format(Locale.ENGLISH, "geo:0,0?q=Pomorska 149/153, 90-001 Łódź");
+        String uri = String.format(Locale.ENGLISH, "geo:0,0?q=pomorska 88,  Łódź");
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
         intent.setPackage("com.google.android.apps.maps");
 
