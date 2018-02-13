@@ -95,7 +95,6 @@ public class RepertoireFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
 
 
-        MenuTheaterActivity.txtFullName.setText(mAuth.getCurrentUser().getEmail());
 
         set = new HashSet<String>();
 
