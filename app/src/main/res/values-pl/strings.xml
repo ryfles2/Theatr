@@ -6,7 +6,7 @@
     <string name="category_map">Mapa</string>
     <string name="category_login">Zaloguj</string>
     <string name="category_help">Samouczek</string>
-    <string name="category_about_us">O nas</string>
+    <string name="category_about_us">O twórcach</string>
     <string name="auth_failed">Nieusana autentyfikacja</string>
     <string name="action_settings">Ustawienia</string>
     <string name="create_account">Stwórz konto</string>
