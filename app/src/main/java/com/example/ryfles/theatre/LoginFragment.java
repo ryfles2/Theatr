@@ -92,6 +92,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             v.findViewById(R.id.email_sign_in_button).setOnClickListener(this);
             v.findViewById(R.id.email_create_account_button).setOnClickListener(this);
             v.findViewById(R.id.verify_email_button).setOnClickListener(this);
+            v.findViewById(R.id.resetPsswd).setOnClickListener(this);
 
 
         return v;
@@ -329,6 +330,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             view.findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
             view.findViewById(R.id.email_sign_in_button).setVisibility(View.GONE);
             view.findViewById(R.id.email_create_account_button).setVisibility(View.GONE);
+            view.findViewById(R.id.verify_email_button).setVisibility(View.GONE);
+            view.findViewById(R.id.resetPsswd).setVisibility(View.GONE);
             mEmailField .setVisibility(View.GONE);
             mPasswordField.setVisibility(View.GONE);
 
@@ -345,6 +348,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
             Common.currentMailUser="Guest";
 
+            view.findViewById(R.id.resetPsswd).setVisibility(View.VISIBLE);
+            view.findViewById(R.id.verify_email_button).setVisibility(View.VISIBLE);
             view.findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
             view.findViewById(R.id.sign_out_and_disconnect).setVisibility(View.GONE);
             view.findViewById(R.id.email_sign_in_button).setVisibility(View.VISIBLE);
@@ -370,6 +375,28 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         }else if (i == R.id.verify_email_button) {
             sendEmailVerification();
         }
+        else if (i == R.id.resetPsswd) {
+            ressetPsswd();
+        }
+    }
+
+    private void ressetPsswd() {
+        //FirebaseUser user = mAuth.getCurrentUser();
+        mAuth.sendPasswordResetEmail(mEmailField.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful())
+                {
+                    //Intent intent = new Intent(forgot_password_activity.this,MainActivity.class);
+                    //startActivity(intent);
+                    Toast.makeText(getContext(),"Check mail box!",Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Toast.makeText(getContext(),"Can't send email!",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     @VisibleForTesting

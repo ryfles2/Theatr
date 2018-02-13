@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.ryfles.theatre.Common.Common;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MenuTheaterActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
@@ -50,7 +51,11 @@ public class MenuTheaterActivity extends AppCompatActivity
 
         View headerView = navigationView.getHeaderView(0);
         txtFullName= (TextView) headerView.findViewById(R.id.txtFullName);
-        txtFullName.setText(Common.currentMailUser);
+
+
+
+
+
 
 
 
