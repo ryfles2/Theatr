@@ -92,6 +92,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             v.findViewById(R.id.email_sign_in_button).setOnClickListener(this);
             v.findViewById(R.id.email_create_account_button).setOnClickListener(this);
             v.findViewById(R.id.verify_email_button).setOnClickListener(this);
+            v.findViewById(R.id.resetPsswd).setOnClickListener(this);
 
 
         return v;
@@ -370,6 +371,27 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         }else if (i == R.id.verify_email_button) {
             sendEmailVerification();
         }
+        else if (i == R.id.resetPsswd) {
+            ressetPsswd();
+        }
+    }
+
+    private void ressetPsswd() {
+        FirebaseUser user = mAuth.getCurrentUser();
+        mAuth.sendPasswordResetEmail(user.getEmail().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful())
+                {
+                    //Intent intent = new Intent(forgot_password_activity.this,MainActivity.class);
+                    //startActivity(intent);
+                }
+                else
+                {
+                    Toast.makeText(getContext(),"Can't send email!",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     @VisibleForTesting
