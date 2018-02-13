@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ryfles.theatre.Common.Common;
 import com.example.ryfles.theatre.Common.ConfigPayPal;
 import com.example.ryfles.theatre.Interface.ItemClickListener;
 import com.example.ryfles.theatre.Models.DataModel;
@@ -80,6 +81,7 @@ public class RepertoireFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_repertoire, container, false);
 
+
         txtRepertuarInfo = view.findViewById(R.id.repertuarInfo);
         txtEepertuarPrice = view.findViewById(R.id.repertuarPrice);
         btnBuyTickets = view.findViewById(R.id.btnBuyTickets);
@@ -91,6 +93,9 @@ public class RepertoireFragment extends Fragment {
         layoutManager = new GridLayoutManager(getContext(),1);
         recyclerRepertuar.setLayoutManager(layoutManager);
         mAuth = FirebaseAuth.getInstance();
+
+
+        MenuTheaterActivity.txtFullName.setText(mAuth.getCurrentUser().getEmail());
 
         set = new HashSet<String>();
 
@@ -339,8 +344,7 @@ public class RepertoireFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        //getActivity().setTitle("Repertoire");
-          getActivity().setTitle(getString(R.string.repertoire_category));
+        getActivity().setTitle(getString(R.string.repertoire_category));
     }
     @Override
     public void onCreate(Bundle savedInstanceState) {
