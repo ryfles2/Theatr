@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -123,6 +124,7 @@ public class RepertoireFragment extends Fragment {
                          price2=model.getPrice2();
                          //txtRepertuarInfo.setText(model.getOpis());
                          txtRepertuarInfo.setText("Regular ticket: "+price+" $"+ "\nConcession ticket: "+price2+" $"+"\n"+model.getOpis());
+                         txtRepertuarInfo.setMovementMethod(new ScrollingMovementMethod());
                          Picasso.with(getActivity().getBaseContext()).load(model.getUrl()).into(imageView);
                          loadDate();
 
