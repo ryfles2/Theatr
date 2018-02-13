@@ -1,23 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/common_google_signin_btn_text_dark_focused"
 
-    <LinearLayout
+    >
+
+
+    <ImageView
+        android:id="@+id/imageView2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="100dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/number"
+        tools:layout_editor_absoluteX="121dp" />
 
-        <TextView
-            android:id="@+id/txtTools"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="tools"
-            tools:layout_editor_absoluteX="2dp"
-            tools:layout_editor_absoluteY="1dp" />
+    <TextView
+        android:id="@+id/txtYellow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/darker_gray"
+        android:gravity="center"
+        android:maxLines="5"
+        android:scrollbars="vertical"
+        android:text="@string/strYellow"
+        android:textColor="#FFFF"
+        android:textSize="20sp"
+        android:layout_marginBottom="10dp"
+        />
+    <TextView
+        android:id="@+id/txtRed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/darker_gray"
+        android:gravity="center"
+        android:maxLines="5"
+        android:scrollbars="vertical"
+        android:text="@string/strRed"
+        android:textColor="#FFFF"
+        android:textSize="20sp"
+        android:layout_marginBottom="10dp"
+        />
+    <TextView
+        android:id="@+id/txtBlue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/darker_gray"
+        android:gravity="center"
+        android:maxLines="5"
+        android:scrollbars="vertical"
+        android:text="@string/strBlue"
+        android:textColor="#FFFF"
+        android:textSize="20sp"
+        android:layout_marginBottom="10dp"
+        />
+    <TextView
+        android:id="@+id/txtCzan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/darker_gray"
+        android:gravity="center"
+        android:maxLines="5"
+        android:scrollbars="vertical"
+        android:text="@string/strCyan"
+        android:textColor="#FFFF"
+        android:textSize="20sp"
+        android:layout_marginBottom="10dp"
+        />
 
 
-    </LinearLayout>
-
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

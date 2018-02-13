@@ -15,14 +15,14 @@ import android.widget.TextView;
 public class ToolsFragment extends Fragment {
 
 
-    private TextView txtTools;
+    //private TextView txtTools;
     private View view;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         view= inflater.inflate(R.layout.fragment_tools, container, false);
-        view.findViewById(R.id.txtTools);
+        //view.findViewById(R.id.txtTools);
 
         //txtTools.setText();
 

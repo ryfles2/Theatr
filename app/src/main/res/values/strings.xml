@@ -70,6 +70,12 @@
     <string name="twitter_status_fmt">Twitter User: %s</string>
     <string name="twitter_title_text">Twitter Login</string>
 
+    <string name="strYellow">Color yellow means that someone else has reserved a place</string>
+    <string name="strRed">Color red means that someone else has bought a place</string>
+    <string name="strBlue">Color Blue means that you have reserved a place</string>
+    <string name="strCyan">Color Cyan means that you have bought a place</string>
+
+
     <string name="category_repertoire">Repertoire</string>
     <string name="category_tickets">My tickets</string>
     <string name="category_map">Map</string>
