@@ -82,6 +82,7 @@
     <string name="category_help">Help</string>
     <string name="category_login">Login</string>
     <string name="category_about_us">About creators</string>
+    <string name="creators">Creators</string>
 
     <string name="firebaseui_status_fmt">Firebase User: %s</string>
     <string name="firebaseui_title_text">FirebaseUI Auth</string>
