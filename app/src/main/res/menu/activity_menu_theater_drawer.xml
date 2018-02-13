@@ -6,19 +6,19 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_Repertoire"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_local_movies_black_24dp"
             android:title="@string/category_repertoire" />
         <item
             android:id="@+id/nav_MyTickets"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_style_black_24dp"
             android:title="@string/category_tickets" />
         <item
             android:id="@+id/nav_Payment"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_map_black_24dp"
             android:title="@string/category_map" />
         <item
             android:id="@+id/nav_Tools"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_help_outline_black_24dp"
             android:title="@string/category_help" />
     </group>
     <!--- <item android:title="Communicate"> -->
@@ -31,7 +31,7 @@
             <!--- android:title="Share" /> -->
             <item
                 android:id="@+id/nav_AboutUs"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@drawable/ic_portrait_black_24dp"
                 android:title="@string/category_about_us" />
         </menu>
     </item>
