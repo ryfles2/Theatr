@@ -330,6 +330,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             view.findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
             view.findViewById(R.id.email_sign_in_button).setVisibility(View.GONE);
             view.findViewById(R.id.email_create_account_button).setVisibility(View.GONE);
+            view.findViewById(R.id.verify_email_button).setVisibility(View.GONE);
+            view.findViewById(R.id.resetPsswd).setVisibility(View.GONE);
             mEmailField .setVisibility(View.GONE);
             mPasswordField.setVisibility(View.GONE);
 
@@ -346,6 +348,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
             Common.currentMailUser="Guest";
 
+            view.findViewById(R.id.resetPsswd).setVisibility(View.VISIBLE);
+            view.findViewById(R.id.verify_email_button).setVisibility(View.VISIBLE);
             view.findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
             view.findViewById(R.id.sign_out_and_disconnect).setVisibility(View.GONE);
             view.findViewById(R.id.email_sign_in_button).setVisibility(View.VISIBLE);
@@ -377,14 +381,15 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     }
 
     private void ressetPsswd() {
-        FirebaseUser user = mAuth.getCurrentUser();
-        mAuth.sendPasswordResetEmail(user.getEmail().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+        //FirebaseUser user = mAuth.getCurrentUser();
+        mAuth.sendPasswordResetEmail(mEmailField.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful())
                 {
                     //Intent intent = new Intent(forgot_password_activity.this,MainActivity.class);
                     //startActivity(intent);
+                    Toast.makeText(getContext(),"Check mail box!",Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
